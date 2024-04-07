@@ -3,7 +3,7 @@ namespace Zwoo.BotDashboard.Distributor;
 /// <summary>
 /// A distributor that does nothing.
 /// </summary>
-internal class NoopDistributor : Distributor
+internal class NoopDistributor : IDistributor
 {
     /// <summary>
     /// do nothing.

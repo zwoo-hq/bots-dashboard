@@ -8,7 +8,7 @@ namespace Zwoo.BotDashboard.Distributor;
 /// <summary>
 /// A distributor that sends messages to the proxy using a web socket.
 /// </summary>
-internal class WebSocketDistributor : Distributor
+internal class WebSocketDistributor : IDistributor
 {
     /// <summary>
     /// The web socket used to send messages.

@@ -6,21 +6,23 @@ namespace Zwoo.BotDashboard.Distributor;
 public class DistributorFactory
 {
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-    /// <summary>
-    /// Creates a new distributor.
-    /// </summary>
-    public static async Task<Distributor> CreateDistributorAsync(Configuration configuration)
-    {
-        Distributor instance;
-#if ZRP_DEBUG
-        instance = new WebSocketDistributor(configuration);
-        await instance.ConnectAsync();
-#else
-        instance = new NoopDistributor();
-#endif
-        return instance;
-    }
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+        /// <summary>
+        /// Creates a new distributor.
+        /// </summary>
+        public static async Task<IDistributor> CreateDistributorAsync(Configuration configuration, bool debugEnabled = false)
+        {
+                IDistributor instance;
+                if (debugEnabled)
+                {
+                        var wsInstance = new WebSocketDistributor(configuration);
+                        await wsInstance.ConnectAsync();
+                        instance = wsInstance;
+                }
+                else
+                {
+                        instance = new NoopDistributor();
+                }
+                return instance;
+        }
 
 }

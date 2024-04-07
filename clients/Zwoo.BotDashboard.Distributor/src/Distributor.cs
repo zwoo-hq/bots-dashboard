@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a distributor that can send messages.
 /// </summary>
-public interface Distributor
+public interface IDistributor
 {
     /// <summary>
     /// Sends a message to the zrp proxy.
