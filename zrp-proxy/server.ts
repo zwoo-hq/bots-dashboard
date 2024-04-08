@@ -1,45 +1,22 @@
-const { WebSocketServer } = require("ws");
-
-/** @type {Object<string, Connection>} */
-const ALL_CONNECTIONS = {};
-
-const ConnectionType = {
-  Distributer: "distribution",
-  Listener: "dashboard",
-};
-
-/**
- * @typedef DistributerMeta
- * @type {object}
- * @property {string} id - the id of the distributor
- * @property {string} instance - the url of the distributor
- */
+import { WebSocketServer, type WebSocket } from "ws";
+import { ConnectionType, DistributorMeta } from "./src/types";
 
 class Connection {
-  /** @type {Array.<string>} */
-  listens = [];
-
-  /**  @type {DistributerMeta} */
-  data = {};
-
-  /**
-   *
-   * @param {string} id
-   * @param {WebSocket} ws
-   * @param {string} type
-   */
-  constructor(id, ws, type) {
-    this.id = id;
-    this.ws = ws;
-    this.type = type;
-  }
+  constructor(
+    public readonly id: string,
+    public readonly ws: WebSocket,
+    public type: ConnectionType = "" as ConnectionType,
+    public listens: string[] = [],
+    public data?: DistributorMeta
+  ) {}
 }
 
+const ALL_CONNECTIONS: Record<string, Connection> = {};
 const wss = new WebSocketServer({ port: 9072 });
 
 wss.on("connection", (ws) => {
   const id = Math.random().toString(36).substring(2, 7);
-  const conn = new Connection(id, ws, "");
+  const conn = new Connection(id, ws);
   ALL_CONNECTIONS[id] = conn;
   console.log(`${id} connected`);
 
@@ -77,7 +54,7 @@ wss.on("connection", (ws) => {
  * @param {string} command
  * @param {Connection} conn
  */
-function processCommand(command, conn) {
+function processCommand(command: string, conn: Connection) {
   command = command.substring(1); // remove leading "!"
   if (command.startsWith("distribution")) {
     // register connection as a distributor
@@ -98,7 +75,7 @@ function processCommand(command, conn) {
   } else if (command.startsWith("listen")) {
     // listen to a distributor
     const id = command.substring("listen".length + 1);
-    if (Object.values(ALL_CONNECTIONS).some((c) => c.data.id === id)) {
+    if (Object.values(ALL_CONNECTIONS).some((c) => c.data?.id === id)) {
       conn.listens.push(id);
     } else {
       console.log(`${conn.id} tried to listen to ${id} but it doesn't exist`);
@@ -121,7 +98,7 @@ function processCommand(command, conn) {
  * sends all targets to a connection
  * @param {Connection} conn
  */
-function sendTargets(conn) {
+function sendTargets(conn: Connection) {
   const targets = Object.values(ALL_CONNECTIONS).filter(
     (c) => c.type === ConnectionType.Distributer
   );
@@ -134,13 +111,13 @@ function sendTargets(conn) {
  * @param {string} message
  * @param {Connection} conn
  */
-function processMessage(message, conn) {
+function processMessage(message: string, conn: Connection) {
   if (conn.type === ConnectionType.Distributer) {
     // forward message to all listeners
     Object.values(ALL_CONNECTIONS)
       .filter((c) => c.type === ConnectionType.Listener)
       .forEach((c) => {
-        if (c.listens.includes(conn.data.id)) {
+        if (conn.data?.id && c.listens.includes(conn.data.id)) {
           c.ws.send(message);
         }
       });

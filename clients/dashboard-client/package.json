@@ -1,0 +1,13 @@
+{
+  "name": "@zwoo/dashboard-client",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [],
+  "author": "Fabian Kachlock",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.12.5",
+    "typescript": "^5.4.4",
+    "vite": "^5.2.8"
+  }
+}

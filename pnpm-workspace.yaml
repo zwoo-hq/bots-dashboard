@@ -1,0 +1,3 @@
+packages:
+  - "zrp-proxy/"
+  - "clients/dashboard-client/"

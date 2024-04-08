@@ -3,7 +3,21 @@
   "zrp-proxy": {
     "$adapter": "custom",
     "proxy": {
-      "run": "node ./server.js"
+      "run": "pnpm ts-node ./server.ts"
+    }
+  },
+  "cs-distributor": {
+    "$adapter": "custom",
+    "$dir": "clients/Zwoo.BotDashboard.Distributor",
+    "distributor": {
+      "build": "dotnet build -c Release"
+    }
+  },
+  "dashboard-client": {
+    "$adapter": "vite-pnpm",
+    "$dir": "clients/dashboard-client",
+    "client": {
+      "mode": "dev"
     }
   }
 }
