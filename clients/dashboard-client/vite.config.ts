@@ -1,15 +1,18 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
   resolve: {
     alias: {
-      src: resolve("src/"),
+      "@": resolve(__dirname, "src"),
     },
   },
+  plugins: [dts()],
   build: {
+    minify: true,
     lib: {
-      entry: resolve(__dirname, "src/main.ts"),
+      entry: resolve(__dirname, "main.ts"),
       formats: ["es"],
     },
   },

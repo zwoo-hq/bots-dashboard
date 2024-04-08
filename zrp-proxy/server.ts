@@ -102,7 +102,9 @@ function sendTargets(conn: Connection) {
   const targets = Object.values(ALL_CONNECTIONS).filter(
     (c) => c.type === ConnectionType.Distributer
   );
-  conn.ws.send(JSON.stringify(targets.map((target) => target.data)));
+  conn.ws.send(
+    "!targets," + JSON.stringify(targets.map((target) => target.data))
+  );
 }
 
 /**

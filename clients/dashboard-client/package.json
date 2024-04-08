@@ -4,10 +4,16 @@
   "description": "",
   "keywords": [],
   "author": "Fabian Kachlock",
+  "files": [
+    "dist"
+  ],
+  "module": "dist/dashboard-client.mjs",
+  "types": "dist/main.d.ts",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.12.5",
     "typescript": "^5.4.4",
-    "vite": "^5.2.8"
+    "vite": "^5.2.8",
+    "vite-plugin-dts": "^3.8.1"
   }
 }
