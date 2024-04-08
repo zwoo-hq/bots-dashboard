@@ -59,3 +59,8 @@ The header will be encoded like this:
 ```
 [gameId;senderId;receiverId]
 ```
+
+ZRPe includes 2 special IDs:
+
+- `-1`: ServerID: the server sends or receives the message
+- `-2`: BroadcastID: the server broadcasts a message to the game

@@ -12,6 +12,11 @@ public struct OutgoingMessage
     public static long ServerID = -1;
 
     /// <summary>
+    /// The ID used internally to represent a broadcast to the game. This is not a valid zwoo game engine lobby id.
+    /// </summary>
+    public static long BroadcastID = -2;
+
+    /// <summary>
     /// The ID of the game.
     /// </summary>    
     public long GameId { get; set; }
