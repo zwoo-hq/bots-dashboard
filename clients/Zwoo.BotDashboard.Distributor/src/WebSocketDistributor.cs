@@ -42,8 +42,9 @@ internal class WebSocketDistributor : IDistributor
     /// <summary>
     /// Connects to the proxy.
     /// </summary>
-    internal async Task ConnectAsync()
+    private async Task ConnectAsync()
     {
+        _webSocket = new ClientWebSocket();
         await _webSocket.ConnectAsync(new Uri(_configuration.ProxyUrl), CancellationToken.None);
         await SendStringAsync("!distribution," + JsonSerializer.Serialize(_data, DistributorSerializerContext.Default.DistributorData));
     }
@@ -62,6 +63,16 @@ internal class WebSocketDistributor : IDistributor
     /// </summary>
     private async Task SendStringAsync(string message)
     {
+        if (_webSocket.State != WebSocketState.Open)
+        {
+            try
+            {
+                await _webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
+            }
+            catch { }
+            await ConnectAsync();
+        }
+
         var buffer = Encoding.UTF8.GetBytes(message);
         await _webSocket.SendAsync(new ArraySegment<byte>(buffer), WebSocketMessageType.Text, true, CancellationToken.None);
     }
