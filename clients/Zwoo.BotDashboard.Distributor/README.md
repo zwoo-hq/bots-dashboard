@@ -3,8 +3,8 @@
 A C# ZRPe distribution client.
 
 ![Zwoo.BotDashboard.Distributor](https://img.shields.io/nuget/v/Zwoo.BotDashboard.Distributor?style=for-the-badge&label=Zwoo.BotDashboard.Distributor)
-![license](https://img.shields.io/github/license/zwoo-hq/theme-docs?style=for-the-badge)
-![issues](https://img.shields.io/github/issues/zwoo-hq/theme-docs?style=for-the-badge)
+![license](https://img.shields.io/github/license/bots-dashboard/theme-docs?style=for-the-badge)
+![issues](https://img.shields.io/github/issues/bots-dashboard/theme-docs?style=for-the-badge)
 
 ## Quickstart
 
