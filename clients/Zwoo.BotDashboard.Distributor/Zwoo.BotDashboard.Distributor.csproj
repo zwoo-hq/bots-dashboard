@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>Zwoo.BotDashboard.Distributor</PackageId>
-    <Version>0.0.4</Version>
+    <Version>0.0.9</Version>
     <Authors>Fabian Kachlock</Authors>
 
 
