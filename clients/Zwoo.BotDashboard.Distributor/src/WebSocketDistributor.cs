@@ -88,7 +88,7 @@ internal class WebSocketDistributor : IDistributor
     /// Sends a message to the proxy.
     /// </summary>
     /// <param name="message">The intercepted ZRP Message.</param>
-    public async Task Send(OutgoingMessage message)
+    public async Task SendAsync(OutgoingMessage message)
     {
         lock (_queue)
         {

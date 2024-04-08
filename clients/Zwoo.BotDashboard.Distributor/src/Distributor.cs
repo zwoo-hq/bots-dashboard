@@ -8,5 +8,5 @@ public interface IDistributor
     /// <summary>
     /// Sends a message to the zrp proxy.
     /// </summary>
-    Task Send(OutgoingMessage message);
+    Task SendAsync(OutgoingMessage message);
 }

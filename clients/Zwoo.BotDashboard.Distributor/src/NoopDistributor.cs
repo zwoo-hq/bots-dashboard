@@ -8,7 +8,7 @@ internal class NoopDistributor : IDistributor
     /// <summary>
     /// do nothing.
     /// </summary>
-    public Task Send(OutgoingMessage message)
+    public Task SendAsync(OutgoingMessage message)
     {
         return Task.CompletedTask;
     }
