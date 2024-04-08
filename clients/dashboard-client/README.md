@@ -15,7 +15,7 @@ Install the package via npm/yarn/pnpm
 ## Usage
 
 ```cs
-import { ProxyClient, Configuration } from "@zwoo/dashboard-client";
+import { ProxyClient, Configuration, forGame } from "@zwoo/dashboard-client";
 
 const config = Configuration.withUrl("ws://localhost:9072"); // .fromImportMeta() // .fromEnv()
 const socket = new ProxyClient(config);
@@ -26,11 +26,15 @@ socket.on("open", () => { /* connection opened */});
 socket.on("close", () => { /* connection closed */ });
 socket.on("error", (e) => { /* a websocket error occurred */ });
 socket.on("message", (msg) => { /* received a ZRPe message */ });
-socket.on("targetsUpdated", (targets) => {´/* the list of listening targets updated */ });
+socket.on("targetsUpdated", (targets) => {/* the list of listening targets updated */ });
 
 const target = "foo";
 await socket.listen(target); // listen to a distributor
 await socket.unlisten(target); // stop listening to a distributor
+
+// filtered message handler
+socket.on("message", forGame(1, (msg) => { /* received a ZRPe message for game 1 */ }));
+
 ```
 
 If `Configuration.fromImportMeta()` / `Configuration.fromEnv()` is used, you must provide:
