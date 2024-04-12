@@ -107,4 +107,8 @@ const connect = async () => {
 .v-toolbar .v-input__details {
   display: none;
 }
+
+.v-layout {
+  overflow: unset !important;
+}
 </style>

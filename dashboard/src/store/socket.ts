@@ -17,7 +17,11 @@ export const useState = defineStore("socket", {
     error: null as string | null,
     targets: [] as ListeningTarget[],
     listens: [] as string[],
-    messages: [] as (ZRPeMessage & { timestamp: number })[],
+    messages: [] as (ZRPeMessage & {
+      timestamp: number;
+      flagged?: boolean;
+      open?: boolean;
+    })[],
   }),
   actions: {
     init() {
